@@ -1,9 +1,0 @@
-{
-    "clientId": "958131404103901184",
-    "guildId": "961877383667925042",
-    "token": "OTU4MTMxNDA0MTAzOTAxMTg0.YkI3Zw.262ZRjLkyit0yRvToAaR9el0iUk",
-    "host": "localhost",
-    "dialect": "sqlite",
-    "logging": false,
-    "storage": "./test.sqlite"
-}
