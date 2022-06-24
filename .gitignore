@@ -131,3 +131,5 @@ dist
 
 # Hopefully I don't leak my token again
 config.json
+
+*.sqlite

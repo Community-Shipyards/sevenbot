@@ -40,9 +40,21 @@ client.on("interactionCreate", async (interaction) => {
     const command = client.commands.get(interaction.commandName);
 
     if (!command) return;
-
+    const roles = ['961884657606078504', '961883511797710848', '966820532270039072', '966824564485156924']
+    const modCommands = ['966826608650489956', '966826608650489959', '966826608650489957']
+    console.log(interaction.member.roles.cache);
+    console.log(interaction.member.roles.cache.hasAny(roles))
+    console.log([...interaction.member.roles.cache.keys()])
     try {
-        await command.execute(interaction);
+        if (modCommands.includes(interaction.commandId)) {
+            if (interaction.member.roles.cache.hasAny(...roles)) {
+                await command.execute(interaction);
+            } else {
+                await interaction.reply({ content: 'You do not have the required role to use this command.',  ephemeral: true });
+            }
+        } else {
+            await command.execute(interaction);
+        }
     } catch (error) {
         console.error(error);
         await interaction.reply({

@@ -71,6 +71,7 @@ module.exports = {
                     menu.setDisabled(true);
                 });
             } else if (entry.length == 0 && priority == priority) {
+                await interaction.deferReply();
                 await interaction.editReply({ content: `The target has no ${priority} characters in the database!` });
             } else if (entry.length < 2 && priority == priority) {
                 const res = await sequelize.transaction(async (t) => {
@@ -85,7 +86,12 @@ module.exports = {
         });
         } catch (err) {
             console.log(err);
-            await interaction.editReply('Something went wrong. Any changes that would have been made have been rolled back.');
+            if (interaction.replied || interaction.deferred) {
+                await interaction.editReply('Something went wrong. Any changes that would have been made have been rolled back.');
+            } else {
+                await interaction.reply('Something went wrong. Any changes that would have been made have been rolled back.');
+            }
+            
         };
 	},
 };
