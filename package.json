@@ -1,0 +1,20 @@
+{
+    "name": "seven-bot",
+    "version": "1.0.0",
+    "description": "A Discord.js bot created with the discordjs-cli",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "node ."
+    },
+    "keywords": [],
+    "author": "",
+    "license": "GNU",
+    "dependencies": {
+        "@discordjs/rest": "^1.1.0",
+        "discord.js": "^14.2.0",
+        "logready": "^1.0.0",
+        "nodemon": "^2.0.16",
+        "sequelize": "^6.25.3",
+        "sqlite3": "^5.1.2"
+    }
+}

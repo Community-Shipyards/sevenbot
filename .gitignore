@@ -130,6 +130,10 @@ dist
 .pnp.*
 
 # Hopefully I don't leak my token again
-config.json
+src/config/config.js
 
 *.sqlite
+src/database/*.db
+
+# Goofy ahh mac file system
+**.DS_Store

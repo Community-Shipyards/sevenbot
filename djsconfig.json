@@ -1,0 +1,16 @@
+{
+    "project": "SevenBot",
+    "format": "JavaScript",
+    "run": {
+        "default": "nodemon"
+    },
+    "version": "v14",
+    "scripts": {
+        "deploy-global": "node src/scripts/deploy-global.js",
+        "deploy-dev": "node src/scripts/deploy-dev.js",
+        "update-global": "node src/scripts/update-global.js",
+        "update-dev": "node src/scripts/update-dev.js",
+        "delete-global": "node src/scripts/delete-global.js",
+        "delete-dev": "node src/scripts/delete-dev.js"
+    }
+}
