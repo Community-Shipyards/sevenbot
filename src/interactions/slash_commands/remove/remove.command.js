@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, SelectMenuBuilder, ActionRowBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, SelectMenuBuilder, ActionRowBuilder, ComponentType } = require('discord.js');
 const { db, primaries, sequelize } = require('../../../database/database');
 
 module.exports = {
@@ -52,8 +52,9 @@ module.exports = {
                     await interaction.deferReply();
                     const message = await interaction.editReply({ content: `The target has more than one ${priority}. Please specify which one you want to remove.`, components: [row], fetchReply: true });
 
-                    const collector = message.createMessageComponentCollector({ componentType: 'SELECT_MENU', time: 15000 });
+                    const collector = message.createMessageComponentCollector({ componentType: ComponentType.StringSelect, time: 15000 });
                     collector.on('collect', async i => {
+
                         if (i.user.id === interaction.user.id) {
                             const selected = i.values;
                             const res = await sequelize.transaction(async (t) => {
@@ -85,6 +86,17 @@ module.exports = {
 
                         await interaction.editReply({ content: `Removed ` + entry[0].name + ` from the database.` });
                         console.log(`User ${interaction.user.tag} removed character ${entry[0].name} from the database.`);
+
+                        // Add to logs DB
+                        await logsModel.create(
+                            {
+                                discordId: interaction.user.id,
+                                log: `User ${interaction.user.tag} removed character ${entry[0].name} from the database.`,
+                                command: interaction.commandName,
+                                channelId: interaction.channel.id
+                            }
+                        );
+
                     });
                 }
             });

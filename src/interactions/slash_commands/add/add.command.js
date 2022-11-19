@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const { db, primaries, sequelize } = require('../../../database/database');
+const logsModel = require('../../../database/models/logs.model');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -68,11 +69,12 @@ module.exports = {
                     .setDescription(name)
                     .setAuthor({ name: `Added by ${interaction.user.tag}`, url: interaction.user.displayAvatarURL({ dynamic: true, size: 512 }) })
                     .addFields(
-                        { name: 'Faction', value: faction },
-                        { name: 'Priority', value: priority },
-                        { name: 'Status', value: status },
+                        { name: 'Faction', value: faction, inline: true },
+                        { name: 'Priority', value: priority, inline: true },
+                        { name: 'Status', value: status, inline: true },
                     )
                     .setFooter({ text: 'Made by Jitter#0001', iconURL: 'https://i.imgur.com/r1xNOHD.jpg' });
+
                 await interaction.reply({ embeds: [embed] });
             });
         } catch (err) {

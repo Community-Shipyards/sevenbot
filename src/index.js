@@ -11,6 +11,7 @@ const logError = require('./modules/error.js');
 const logready = require('logready');
 const fs = require('node:fs');
 const path = require('node:path');
+const { logs } = require('./database/database.js');
 
 client.slashCommands = new Collection();
 const slashCommandDir = fs.readdirSync(__dirname + '/interactions/slash_commands/');
@@ -89,10 +90,18 @@ client.on('interactionCreate', async (interaction) => {
 
         if (command) {
             try {
-                return await interaction.reply({
-                    content: 'SevenBot is currently being updated to the latest version of Discord.js. Please hold :pray:',
-                    ephemeral: true,
-                });
+                await logs.create(
+                    {
+                        discordId: interaction.user.id,
+                        log: `User ${interaction.user.tag}. Command /${interaction.commandName}. Channel #${interaction.channel.name}. At ${new Date()}`,
+                        command: interaction.commandName,
+                        channelId: interaction.channel.id,
+                        createdAt: new Date().toUTCString()
+                    }
+                );
+
+                console.log(`${new Date()} > User ${interaction.user.tag}. Command /${interaction.commandName}. Channel #${interaction.channel.name}.`)
+
                 await command.execute(interaction);
             } catch (error) {
                 console.error(error);
@@ -171,6 +180,19 @@ client.on('ready', () => {
         ],
         status: `${STATUS}`,
     });
+
+    setInterval(() => {
+
+        client.user.setPresence({
+            activities: [
+                {
+                    name: `${ACTIVITY}`,
+                    type: ActivityType[TYPE],
+                },
+            ],
+            status: `${STATUS}`,
+        });
+    }, 30000);
 
     async function guildLookup() {
         const guild = client.guilds.cache.get("961877383667925042");

@@ -13,6 +13,7 @@ const sequelize = new Sequelize("database", "user", "password", {
 });
 
 const primaries = require("./models/primaries.model.js")(sequelize);
+const logs = require("./models/logs.model.js")(sequelize);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
@@ -42,4 +43,4 @@ sync();
 
 sequelize.sync();
 
-module.exports = { db, sequelize, primaries };
+module.exports = { db, sequelize, primaries, logs };
