@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, SelectMenuBuilder } = require('discord.js');
 const { db, primaries, sequelize } = require('../../../database/database');
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
         .setDMPermission(false),
 
     async execute(interaction) {
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setColor('#0099ff')
             .setTitle('Character Name')
             .setURL('https://example.org/')
@@ -24,9 +24,9 @@ module.exports = {
                 { name: 'Priority', value: 'placeholder' },
             )
             .setFooter({ text: 'Made by Jitter#0001', iconURL: 'https://i.imgur.com/r1xNOHD.jpg' });
-        const row = new MessageActionRow()
+        const row = new ActionRowBuilder()
             .addComponents(
-                new MessageSelectMenu()
+                new SelectMenuBuilder()
                     .setCustomId('select')
                     .setPlaceholder('Nothing selected')
                     .addOptions([
