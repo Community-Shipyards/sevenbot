@@ -14,7 +14,7 @@ module.exports = {
     CLIENT_ID: '',
     DEV_GUILD_ID: '961877383667925042',
     LOG_CHANNEL: '966831924331040848',
-    STATUS: 'idle',
+    STATUS: 'dnd',
     ACTIVITY: 'discord.gg/perdere',
     TYPE: 'Watching',
     database: {
