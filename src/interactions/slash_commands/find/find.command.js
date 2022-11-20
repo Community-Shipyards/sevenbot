@@ -57,6 +57,7 @@ module.exports = {
 
                 // console.log(formatted)
                 // console.table(formatted);
+                if (!formatted.length) return interaction.reply('No results found');
 
                 interaction.reply(`Found ${entry.length} entries.\`\`\`${table(formatted)}\`\`\``);
             });
